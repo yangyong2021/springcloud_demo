@@ -29,11 +29,8 @@ public class OrderController {
     @GetMapping("{orderId}")
     public Order getOrderById(@PathVariable("orderId") Long orderId){
         Order order = orderService.getOrderById(orderId);
-
         String url = "http://127.0.0.1:8083/user/"+ order.getUserId();
-
         User user = restTemplate.getForObject(url, User.class);
-
         order.setUser(user);
         return order;
     }
