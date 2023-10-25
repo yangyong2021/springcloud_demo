@@ -5,6 +5,7 @@ import com.yangyong.swjtu.order.pojo.Order;
 import com.yangyong.swjtu.order.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Yangyong
@@ -15,7 +16,15 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public Order getOrderById(Long id) {
-        return orderMapper.findById(id);
+        Order order = orderMapper.findById(id);
+//        String url = "http://127.0.0.1:8083/user/"+ order.getUserId();
+        String url = "http://userservice/user/" + order.getUserId();
+        User user = restTemplate.getForObject(url, User.class);
+        order.setUser(user);
+        return order;
     }
 }
