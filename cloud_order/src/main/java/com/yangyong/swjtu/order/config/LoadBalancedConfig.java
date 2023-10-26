@@ -16,7 +16,7 @@ public class LoadBalancedConfig {
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
-    
+
 //    @Bean
 //    public IRule randomRule(){
 //        return new RandomRule();
